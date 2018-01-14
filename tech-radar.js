@@ -13,8 +13,8 @@ function RadarChart(id, data) {
 	 levels: 4,				//How many levels or inner circles should there be drawn
 	 labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
 	 opacityArea: 0.35, 	//The opacity of the area of the blob
-	 dotRadius: 4, 			//The size of the colored circles of each blog
-	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
+	 dotRadius: 10, 			//The size of the colored circles of each blog
+	 opacityCircles: 0.2, 	//The opacity of the circles of each blob
 	 color: d3.schemeCategory10	//Color function
 	};
 	
@@ -71,9 +71,9 @@ function RadarChart(id, data) {
 	   .enter().append("text")
 	   .attr("class", "axisLabel")
 	   .attr("x", 4)
-	   .attr("y", function(d){return -d*radius/cfg.levels;})
+	   .attr("y", function(d){return -(d-1)*radius/cfg.levels - 10;})
 	   .attr("dy", "0.4em")
-	   .style("font-size", "10px")
+	   .style("font-size", "12px")
 	   .attr("fill", "#737373")
 	   .text(function(d,i) { return axisLabels[i]; });
 
@@ -100,7 +100,7 @@ function RadarChart(id, data) {
 	//Append the labels at each axis
 	axis.append("text")
 		.attr("class", "legend")
-		.style("font-size", "11px")
+		.style("font-size", "14px")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/4); })
@@ -126,6 +126,7 @@ function RadarChart(id, data) {
             .attr("cx", function(d,i){ return rScale(1 - d.value) * Math.cos(angleSlice*c - Math.PI/4); })
             .attr("cy", function(d,i){ return rScale(1 - d.value) * Math.sin(angleSlice*c - Math.PI/4); })
             .style("fill", function(d,i,j) { return cfg.color[c]; })
-            .style("fill-opacity", 0.8);
-        })
+            .style("fill-opacity", 0.8)
+            .append("title").text(function(d) { return d.key; });
+        });
 }
