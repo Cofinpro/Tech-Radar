@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tech-Radar</title>
+        <meta charset="UTF-8"></meta>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="tech-radar.js"></script>
+    </head>
+    <body>
+        <h1>Tech-Radar</h1>
+        <div id="radar">
+        </div>
+    <script>
+         /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+      
+			////////////////////////////////////////////////////////////// 
+			////////////////////////// Data ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+        var data = {
+            'Frontend': {
+                'Angular': 0.7,
+                'JSF': 0.8
+            },
+            'Backend': {
+                'JBoss/Wildfly': 0.8,
+                'Tomcat': 0.7,
+                'Websphere': 0.2,
+                'Node.js': 0.5
+            },
+            'Integration': {},
+            'Plattform': {}
+            }				
+			//Call function to draw the Radar chart
+			RadarChart("#radar", data );
+</script
+    </body>
+</html>
+
+
