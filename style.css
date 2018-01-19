@@ -1,0 +1,11 @@
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+h1 {
+    color: #181818;
+}
