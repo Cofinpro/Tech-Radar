@@ -11,13 +11,9 @@
         <h1>Tech-Radar</h1>
         <div id="radar">
         </div>
-    <script>
-         /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
-      
-			////////////////////////////////////////////////////////////// 
-			////////////////////////// Data ////////////////////////////// 
-			////////////////////////////////////////////////////////////// 
+        <script>
         var data = {
+	    // Ranges in percentages: 100% is the center, 0% is outside
             'Frontend': {
                 'Angular': 0.7,
                 'JSF': 0.8
@@ -30,10 +26,9 @@
             },
             'Integration': {},
             'Plattform': {}
-            }				
-			//Call function to draw the Radar chart
-			RadarChart("#radar", data );
-</script
+        };				
+        RadarChart("#radar", data );
+        </script
     </body>
 </html>
 
