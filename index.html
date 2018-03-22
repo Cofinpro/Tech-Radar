@@ -11,6 +11,9 @@
         <h1>Tech-Radar</h1>
         <div id="radar">
         </div>
+        <div id="legend">
+
+        </div>
         <script>
         var data = {
 	    // Ranges in percentages: 100% is the center, 0% is outside
@@ -28,7 +31,8 @@
             'Plattform': {}
         };				
         RadarChart("#radar", data );
-        </script
+        drawLegend(data);
+        </script>
     </body>
 </html>
 
