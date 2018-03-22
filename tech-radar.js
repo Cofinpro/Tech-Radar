@@ -192,7 +192,7 @@ function drawLegend(data, cfg) {
         .append("div");
 
     // append the heading
-    legendSection.append("h1").text(function (d) {
+    legendSection.append("h3").text(function (d) {
         return d.name;
 	})
 	.style("color", function (d, i) { return cfg.color[i]; });
