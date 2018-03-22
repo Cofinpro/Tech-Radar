@@ -154,6 +154,8 @@ function RadarChart(id, data) {
                 .attr("alignment-baseline", "central");
 
 		});
+
+		drawLegend(data, cfg);
 }
 
 /**
@@ -181,7 +183,7 @@ function enrichData(data) {
 	}
 }
 
-function drawLegend(data) {
+function drawLegend(data, cfg) {
 
     var legendSection = d3.select("#legend")
         .selectAll('div')
@@ -192,7 +194,8 @@ function drawLegend(data) {
     // append the heading
     legendSection.append("h1").text(function (d) {
         return d.name;
-    });
+	})
+	.style("color", function (d, i) { return cfg.color[i]; });
 
     // append the list
     legendSection.append("ol")
