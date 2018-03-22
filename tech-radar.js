@@ -80,7 +80,7 @@ function RadarChart(id, data) {
 
 	//Create the straight lines radiating outward from the center
 	var axis = axisGrid.selectAll(".axis")
-		.data(allAxis)
+		.data(data)
 		.enter()
 		.append("g")
 		.attr("class", "axis");
@@ -102,7 +102,7 @@ function RadarChart(id, data) {
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/4); })
 		.attr("y", function(d, i){ return rScale(cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/4); })
-		.text(function(d){ return d; });
+		.text(function(d){ return d.name; });
 
 	/////////////////////////////////////////////////////////
 	///////////// Draw the radar chart blobs ////////////////
