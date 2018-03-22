@@ -1,35 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Tech-Radar</title>
-        <meta charset="UTF-8"></meta>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="tech-radar.js"></script>
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-        <h1>Tech-Radar</h1>
-        <div id="radar">
-        </div>
-        <script>
-        var data = {
-	    // Ranges in percentages: 100% is the center, 0% is outside
-            'Frontend': {
-                'Angular': 0.7,
-                'JSF': 0.8
+
+<head>
+    <title>Tech-Radar</title>
+    <meta charset="UTF-8"></meta>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="tech-radar.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Tech-Radar</h1>
+    <div id="radar">
+    </div>
+    <script>
+        var data = [
+            // Ranges in percentages: 100% is the center, 0% is outside
+            {
+                name: 'Frontend',
+                items: [
+                    {
+                        name: 'Angular',
+                        circle: 1,
+                    },
+                    {
+                        name: 'JSF',
+                        circle: 4,
+                    }
+                ]
             },
-            'Backend': {
-                'JBoss/Wildfly': 0.8,
-                'Tomcat': 0.7,
-                'Websphere': 0.2,
-                'Node.js': 0.5
+            {
+                name: 'Backend',
+                items: [
+                    {
+                        name: 'JBoss/Wildfly',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Tomcat',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Websphere',
+                        circle: 3,
+                    },
+                    {
+                        name: 'Node.js',
+                        circle: 3,
+                    }
+                ]
             },
-            'Integration': {},
-            'Plattform': {}
-        };				
-        RadarChart("#radar", data );
-        </script
-    </body>
+            {
+                name: 'Integration',
+                items: [
+                    {
+                        name: 'JBoss/Wildfly',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Tomcat',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Websphere',
+                        circle: 3,
+                    },
+                    {
+                        name: 'Node.js',
+                        circle: 3,
+                    }
+                ]
+            },
+            {
+                name: 'Plattform',
+                items: [
+                    {
+                        name: 'JBoss/Wildfly',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Tomcat',
+                        circle: 2,
+                    },
+                    {
+                        name: 'Websphere',
+                        circle: 4,
+                    },
+                    {
+                        name: 'Node.js',
+                        circle: 4,
+                    },
+                    {
+                        name: 'Apache',
+                        circle: 4,
+                    }
+                ]
+            },
+        ];
+        RadarChart("#radar", data);
+    </script>
+</body>
+
 </html>
-
-
