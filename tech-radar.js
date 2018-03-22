@@ -185,21 +185,21 @@ function drawLegend(data) {
 
     var legendSection = d3.select("#legend")
         .selectAll('div')
-        .data(d3.entries(data))
+        .data(data)
         .enter()
         .append("div");
 
     // append the heading
     legendSection.append("h1").text(function (d) {
-        return d.key;
+        return d.name;
     });
 
     // append the list
     legendSection.append("ol")
         .selectAll('li')
-        .data(function(d) { return d3.entries(d.value); })
+        .data(function(d) { return d.items; })
         .enter()
-        .append("li").text(function (d) { return d.key });
+        .append("li").text(function (d) { return d.name });
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
