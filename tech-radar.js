@@ -58,8 +58,9 @@ function RadarChart(id, data) {
 		.attr("class", "gridCircle")
 		.attr("r", function (d, i) { return radius / cfg.levels * d; })
 		.style("fill", "#CDCDCD")
-		.style("stroke", "#CDCDCD")
-		.style("fill-opacity", cfg.opacityCircles)
+		.style("stroke", "#a9c5e8")
+		.style("stroke-dasharray", "5,5")
+		.style("fill-opacity", 0)
 
 	//Text indicating each stage
 	axisGrid.selectAll(".axisLabel")
@@ -70,7 +71,7 @@ function RadarChart(id, data) {
 		.attr("y", function (d) { return -(d - 1) * radius / cfg.levels - 10; })
 		.attr("dy", "0.4em")
 		.style("font-size", "12px")
-		.attr("fill", "#737373")
+		.attr("fill", "#ec7b1a")
 		.text(function (d, i) { return axisLabels[i]; });
 
 	/////////////////////////////////////////////////////////
@@ -90,8 +91,8 @@ function RadarChart(id, data) {
 		.attr("x2", function (d, i) { return rScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2); })
 		.attr("y2", function (d, i) { return rScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2); })
 		.attr("class", "line")
-		.style("stroke", "white")
-		.style("stroke-width", "2px");
+		.style("stroke", "#a9c5e8")
+		.style("stroke-width", "1px");
 
 	//Append the labels at each axis
 	axis.append("text")
