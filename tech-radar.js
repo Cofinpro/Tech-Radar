@@ -6,7 +6,7 @@ function RadarChart(id, data) {
 		w: 600,				//Width of the circle
 		h: 600,				//Height of the circle
 		margin: { top: 20, right: 40, bottom: 20, left: 20 }, //The margins of the SVG
-		levels: 4,				//How many levels or inner circles should there be drawn
+		levels: 5,				//How many levels or inner circles should there be drawn
 		labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
 		opacityArea: 0.35, 	//The opacity of the area of the blob
 		dotRadius: 10, 			//The size of the colored circles of each blog
@@ -14,7 +14,7 @@ function RadarChart(id, data) {
 		color: d3.schemeCategory10	//Color function
 	};
 
-	var axisLabels = ['Adopt', 'Trail', 'Assess', 'Hold'].reverse();
+	var axisLabels = ['', 'Adopt', 'Trail', 'Assess', 'Hold'].reverse();
 
 	var allAxis = (d3.keys(data)),           	//Names of each axis
 		total = allAxis.length,					//The number of different axes
@@ -192,7 +192,7 @@ function determineScaleForSingleDot(level, cfg, radius) {
 	var endOfScale = oneCirclesShareOfScale - halfCircleSizeInRelationToScale;
 
 	var randomPointOnShareOfScale = getRandomArbitrary(beginOfScale, endOfScale);
-	var scaleParam = (level * oneCirclesShareOfScale) - randomPointOnShareOfScale;
+	var scaleParam = ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 
 	return scaleParam;
 }
