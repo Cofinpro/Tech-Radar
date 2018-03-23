@@ -1,16 +1,47 @@
 body {
-    max-width: 1200px;
     margin: 0 auto;
-
-    font-size: 18px;
+    max-width: 900px;
     font-family: sans-serif;
-
+    font-size: 130%;
+    line-height: 1.5rem;
 }
 
-.test {
-    margin-top:2rem;
+// Lists
+ul,
+ol {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+ul li,
+ol li {
+  line-height: 1.8rem;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
 h1 {
-    color: #181818;
+  font-size: 4.25rem;
+  line-height: 4.5rem;
+  margin-top: 3rem;
+}
+h2 {
+  font-size: 2.75rem;
+  line-height: 3rem;
+  margin-top: 3rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Element styles */
+.container {
+    display: grid;
+    grid-template-columns: 250px auto;
 }

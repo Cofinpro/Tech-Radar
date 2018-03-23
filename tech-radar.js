@@ -125,8 +125,8 @@ function RadarChart(id, data) {
 				.data(d.items)
 				.enter()
                 .append("g")
-                .attr("transform", function(innerData, i) {
-                    var position = determinePosition(c, d.circleCounts[innerData.circle], innerData.number);
+                .attr("transform", function(innerData) {
+                    var position = determinePosition(c, d.circleCounts[innerData.circle], innerData.idInCircle);
                     var scaleParam = determineScaleForSingleDot(innerData.circle, cfg, radius);
 
                     var x = rScale(scaleParam) * Math.cos(position - Math.PI / 2);
@@ -145,13 +145,12 @@ function RadarChart(id, data) {
 				.append("title").text(function (d) { return d.name; });
 
             radarCircle
-                .append("text").text(function (data, i) {
-                    return i + 1;
+                .append("text").text(function (data) {
+                    return data.number;
                 })
-                .style("font-size", cfg.dotRadius)
                 .attr("fill", "white")
                 .attr("text-anchor", "middle")
-                .attr("alignment-baseline", "central");
+                .attr("dominant-baseline", "central");
 
 		});
 
@@ -165,22 +164,18 @@ function getRandomArbitrary(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+/**
+ * Assign a number to each technology and calculate the total number of technologies
+ * per section and circle.
+ */
 function enrichData(data) {
-	for (var i = 0; i < data.length; i++) {
-
-		var circleMap = {};
-
-		for (var j = 0; j < data[i].items.length; j++) {
-			if (circleMap[data[i].items[j].circle] === undefined) {
-				circleMap[data[i].items[j].circle] = 1;
-				data[i].items[j].number = 1;
-			} else {
-				data[i].items[j].number = circleMap[data[i].items[j].circle] + 1;
-				circleMap[data[i].items[j].circle] = circleMap[data[i].items[j].circle] + 1;
-			}
-		}
-		data[i].circleCounts = circleMap;
-	}
+	data.forEach(function(section) {
+		section.circleCounts = {1:0, 2:0, 3:0, 4:0};
+		section.items.forEach(function(technology, index) {
+            technology.idInCircle = ++section.circleCounts[technology.circle];
+            technology.number = index+1;
+		});
+    });
 }
 
 function drawLegend(data, cfg) {
@@ -192,7 +187,7 @@ function drawLegend(data, cfg) {
         .append("div");
 
     // append the heading
-    legendSection.append("h3").text(function (d) {
+    legendSection.append("h2").text(function (d) {
         return d.name;
 	})
 	.style("color", function (d, i) { return cfg.color[i]; });
@@ -206,7 +201,6 @@ function drawLegend(data, cfg) {
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
-
 	var quarterStart = (Math.PI / 2) * quarter;
 	var quarterEnd = (Math.PI / 2) * (quarter + 1);
 
@@ -219,7 +213,6 @@ function determinePosition(quarter, dotCountInArea, dotNumber) {
 }
 
 function determineScaleForSingleDot(level, cfg, radius) {
-
 	var halfCircleSizeInRelationToScale = (cfg.dotRadius / radius) / 2;
 	var oneCirclesShareOfScale = 1 / cfg.levels;
 
