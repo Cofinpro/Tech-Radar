@@ -218,7 +218,7 @@ function drawLegend(data, cfg) {
         .append("div")
         .attr('class', function (d) {
             return 'legend legend-' + d.name.toLowerCase()
-        });
+        })
 		.attr('class', function(d) {return 'legend legend-'+d.name.toLowerCase()});
 
     // append the heading
