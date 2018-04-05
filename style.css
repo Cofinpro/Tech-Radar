@@ -18,6 +18,12 @@ ol li {
   line-height: 1.8rem;
 }
 
+ul li,
+ol li.active {
+    color: red;
+    font-size: 1.5rem;
+}
+
 /* Headings */
 h1,
 h2,
@@ -46,7 +52,8 @@ h3 {
     grid-template-columns: 250px auto;
 }
 
-.tech-circle .radarCircle {
+#radar .dot {
+    font-size: 0.8rem;
     cursor: pointer;
 }
 
@@ -54,15 +61,31 @@ h3 {
     cursor: pointer;
 }
 
-li.active {
-    transform: scale(1.2);
+.tech-circle text,
+.tech-circle circle {
+    transition: 0.25s ease-in-out;
+}
+
+.tech-circle.active text,
+.tech-circle.active circle {
+    transform: scale(2);
 }
 
 .legend-integration {
     grid-column-start: 1;
-    grid-column-end: 2;
+    grid-row:2;
+}
+.legend-frontend {
+     grid-column-start: 3;
+}
+.legend-backend {
+    grid-column-start: 3;
+}
+.legend-plattform {
+    grid-column-start: 1;
+    grid-row:1;
 }
 #radar {
     grid-column-start: 2;
-    grid-column-end: 4;
+    grid-row: 1 / span 2;
 }
