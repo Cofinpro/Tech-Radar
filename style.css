@@ -48,28 +48,22 @@ h3 {
     font-size: 1.5rem;
 }
 
-#radar .dot {
-    font-size: 0.8rem;
-    cursor: pointer;
-}
+/* Element styles */
 
-.tech-circle text {
-    cursor: pointer;
+#radar svg {
+    min-width: 500px;
 }
 
 .tech-circle text,
 .tech-circle circle {
+    cursor: pointer;
+    font-size: 0.8rem;
     transition: 0.25s ease-in-out;
 }
 
 .tech-circle.active text,
 .tech-circle.active circle {
     transform: scale(2);
-}
-
-
-#radar svg {
-    min-width: 500px;
 }
 
 @media (min-width: 1000px) {
@@ -110,7 +104,6 @@ h3 {
     #radar .legend {
         visibility: hidden;
     }
-
 
     .tech-circle.clicked text,
     .tech-circle.clicked circle {
