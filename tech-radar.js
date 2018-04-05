@@ -32,7 +32,7 @@ function RadarChart(id, data) {
 
 	//Remove whatever chart with the same id/class was present before
 	d3.select(id).select("svg").remove();
-	
+
 	//Initiate the radar chart SVG
     const svg = d3.select(id).append("svg")
         .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
@@ -97,8 +97,7 @@ function RadarChart(id, data) {
 	//Append the labels at each axis
 	axis.append("text")
 		.attr("class", "legend")
-		.style("font-size", "14px")
-		.attr("text-anchor", "middle")
+        .attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/4); })
 		.attr("y", function(d, i){ return rScale(cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/4); })
@@ -140,18 +139,13 @@ function RadarChart(id, data) {
             radarCircle.append('circle')
                 .attr("class", "radarCircle")
                 .attr("r", cfg.dotRadius)
-                .style("fill", function () {
-                    return cfg.color[c];
-                })
+                .style("fill", function () { return cfg.color[c]; })
                 .style("fill-opacity", 0.8)
-                .append("title").text(function (d) {
-                return d.name;
-            });
+                .append("title").text(function (d) { return d.name; });
 
             radarCircle
-                .append("text").text(function (data) {
-                return data.number;
-            })
+                .append("text").text(function (data) { return data.number; })
+                .attr("class", "dot")
                 .attr("fill", "white")
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "central");
@@ -173,11 +167,12 @@ function getRandomArbitrary(min, max) {
  * per section and circle.
  */
 function enrichData(data) {
-	data.forEach(function(section) {
+    let technologyNumber = 1;
+    data.forEach(function(section) {
 		section.circleCounts = {1:0, 2:0, 3:0, 4:0};
-		section.items.forEach(function(technology, index) {
+		section.items.forEach(function(technology) {
             technology.idInCircle = ++section.circleCounts[technology.circle];
-            technology.number = index+1;
+            technology.number = technologyNumber++;
 		});
     });
 }
@@ -191,13 +186,13 @@ function drawLegend(data, cfg) {
         .append("div");
 
     // append the heading
-    legendSection.append("h2").text(function (d) {
-        return d.name;
-	})
-	.style("color", function (d, i) { return cfg.color[i]; });
+    legendSection
+        .append("h2").text(function (d) { return d.name; })
+        .style("color", function (d, i) { return cfg.color[i]; });
 
     // append the list
     legendSection.append("ol")
+        .attr('start', function(d) { return d.items[0].number; })
         .selectAll('li')
         .data(function(d) { return d.items; })
         .enter()

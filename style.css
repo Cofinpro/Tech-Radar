@@ -6,7 +6,7 @@ body {
     line-height: 1.5rem;
 }
 
-// Lists
+/* Lists */
 ul,
 ol {
   margin-top: 1.5rem;
@@ -44,4 +44,8 @@ h3 {
 .container {
     display: grid;
     grid-template-columns: 250px auto;
+}
+
+#radar .dot {
+    font-size: 0.8rem;
 }
