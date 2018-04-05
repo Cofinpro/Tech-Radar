@@ -55,6 +55,14 @@ h3 {
 }
 
 li.active {
-    color: red;
-    font-size: 25px;
+    transform: scale(1.2);
+}
+
+.legend-integration {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+#radar {
+    grid-column-start: 2;
+    grid-column-end: 4;
 }

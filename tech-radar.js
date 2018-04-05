@@ -136,7 +136,7 @@ function RadarChart(id, data) {
                     return "translate(" + x + "," + y + ")";
                 })
                 .attr("class", "tech-circle")
-                .attr("data-technology", function(d) {return escape(d.name.toLowerCase())})
+                .attr("data-technology", function(d) {return encodeURI(d.name.toLowerCase())})
                 .on("mouseover", handleMouseOver)
         		.on("mouseout", handleMouseOut);
 
@@ -157,7 +157,7 @@ function RadarChart(id, data) {
 
 		});
 
-	drawLegend(data, cfg);
+	drawLegend(data);
 }
 
 /**
@@ -181,13 +181,14 @@ function enrichData(data) {
     });
 }
 
-function drawLegend(data, cfg) {
+function drawLegend(data) {
 
-    var legendSection = d3.select("#legend")
+    var legendSection = d3.select('.container')
         .selectAll('div')
         .data(data)
         .enter()
-        .append("div");
+        .append("div")
+		.attr('class', function(d) {console.log(d);return 'legend-'+d.name.toLowerCase()});
 
     // append the heading
     legendSection.append("h2").text(function (d) {
@@ -201,7 +202,7 @@ function drawLegend(data, cfg) {
         .data(function(d) { return d.items; })
         .enter()
         .append("li")
-        .attr("data-technology", function(d) {return escape(d.name.toLowerCase())})
+        .attr("data-technology", function(d) {return encodeURI(d.name.toLowerCase())})
 		.text(function (d) { return d.name });
 }
 
@@ -240,8 +241,7 @@ function handleMouseOut() {
 		.attr('r',cfg.dotRadius)
         .attr('class', 'radarCircle');
 
-    d3.select("#legend")
-        .select("li[data-technology='"+technology+"']")
+    d3.select("li[data-technology='"+technology+"']")
         .attr('class', '');
 }
 
@@ -252,10 +252,8 @@ function handleMouseOver() {
 
     d3.select(this)
 		.select('circle')
-		.attr('r', cfg.dotRadius * 2)
 		.attr('class', 'radarCircle active');
 
-    d3.select("#legend")
-		.select("li[data-technology='"+technology+"']")
+    d3.select("li[data-technology='"+technology+"']")
 		.attr('class', 'active');
 }
