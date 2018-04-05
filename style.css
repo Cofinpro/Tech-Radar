@@ -1,5 +1,6 @@
 body {
     margin: 0 auto;
+    padding: 0 20px;
     max-width: 1200px;
     font-family: sans-serif;
     font-size: 130%;
@@ -49,12 +50,6 @@ h3 {
     font-size: 1.5rem;
 }
 
-/* Element styles */
-.container {
-    display: grid;
-    grid-template-columns: 250px auto;
-}
-
 #radar .dot {
     font-size: 0.8rem;
     cursor: pointer;
@@ -79,64 +74,47 @@ h3 {
     transform: scale(2);
 }
 
-.legend-integration {
-    grid-column: 3;
-    grid-row: 2;
-}
-
-.legend-frontend {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.legend-backend {
-    grid-column: 3;
-    grid-row: 1
-}
-
-.legend-plattform {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-#radar {
-    grid-row: 1 / span 2;
-    grid-column: 2;
-    justify-self: center;
-    align-self: center;
-}
 
 #radar svg {
     min-width: 500px;
-
 }
 
-#radar .axisLabel {
-}
+@media (min-width: 1000px) {
+    /* Element styles */
+    .container {
+        display: grid;
+        grid-template-columns: 200px auto;
+        grid-column-gap: 20px;
+    }
 
-@media (max-width: 1100px) {
     .legend-integration {
-        grid-column-start: 1;
-        grid-row: 3;
+        grid-column: 3;
+        grid-row: 2;
     }
 
     .legend-frontend {
-        grid-column-start: 1;
-        grid-row: 4;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     .legend-backend {
-        grid-column-start: 1;
-        grid-row: 5;
+        grid-column: 3;
+        grid-row: 1
     }
 
     .legend-plattform {
-        grid-column-start: 1;
-        grid-row: 6;
+        grid-column: 1;
+        grid-row: 2;
     }
 
     #radar {
-        grid-column-start: 1;
-        grid-row: 1;
+        grid-row: 1 / span 2;
+        grid-column: 2;
+        justify-self: center;
+        align-self: center;
+    }
+
+    #radar .legend {
+        visibility: hidden;
     }
 }
