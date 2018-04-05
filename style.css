@@ -19,7 +19,8 @@ ol li {
 }
 
 ul li,
-ol li.active {
+ol li.active,
+ol li.clicked{
     color: red;
     font-size: 1.5rem;
 }
@@ -71,6 +72,11 @@ h3 {
     transform: scale(2);
 }
 
+.tech-circle.clicked text,
+.tech-circle.clicked circle {
+    transform: scale(2);
+}
+
 .legend-integration {
     grid-column-start: 1;
     grid-row:2;
@@ -92,4 +98,27 @@ h3 {
 
 
 #radar .axisLabel {
+}
+
+@media (max-width: 1100px) {
+    .legend-integration {
+        grid-column-start: 1;
+        grid-row:3;
+    }
+    .legend-frontend {
+        grid-column-start: 1;
+        grid-row:4;
+    }
+    .legend-backend {
+        grid-column-start: 1;
+        grid-row:5;
+    }
+    .legend-plattform {
+        grid-column-start: 1;
+        grid-row:6;
+    }
+    #radar {
+        grid-column-start: 1;
+        grid-row: 1;
+    }
 }

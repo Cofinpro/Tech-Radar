@@ -151,8 +151,9 @@ function RadarChart(id, data) {
                 })
                 .attr("class", "tech-circle")
                 .attr("data-technology", function (d) {
-                    return escape(d.name.toLowerCase())
+                    return encodeURI(d.name.toLowerCase())
                 })
+                .on("click", handleClick)
                 .on("mouseover", handleMouseOver)
                 .on("mouseout", handleMouseOut);
 
@@ -168,6 +169,10 @@ function RadarChart(id, data) {
             });
 
             radarCircle
+                .append('a')
+                .attr('href', function (d) {
+                    return '#'+encodeURI(d.name.toLowerCase());
+                })
                 .append("text").text(function (data) {
                 return data.number;
             })
@@ -225,6 +230,7 @@ function drawLegend(data, cfg) {
         .enter()
         .append("li")
         .attr("data-technology", function(d) {return encodeURI(d.name.toLowerCase())})
+        .attr('id', function(d) {return encodeURI(d.name.toLowerCase())})
 		.text(function (d) { return d.name });
 }
 
@@ -249,16 +255,28 @@ function determineScaleForSingleDot(level, cfg, radius) {
     return ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 }
 
+function handleClick() {
+
+    const technology = d3.select(this)
+        .attr("data-technology");
+
+    d3.select(this)
+        .classed('clicked', true);
+
+    d3.select("li[data-technology='"+technology+"']")
+        .classed('clicked', true);
+}
+
 function handleMouseOut() {
 
     const technology = d3.select(this)
         .attr("data-technology");
 
     d3.select(this)
-        .attr('class', 'tech-circle');
+        .classed('active', false);
 
     d3.select("li[data-technology='"+technology+"']")
-        .attr('class', '');
+        .classed('active', false);
 }
 
 function handleMouseOver() {
@@ -267,8 +285,8 @@ function handleMouseOver() {
         .attr("data-technology");
 
     d3.select(this)
-		.attr('class', 'tech-circle active');
+		.classed('active', true);
 
     d3.select("li[data-technology='"+technology+"']")
-		.attr('class', 'active');
+		.classed('active', true);
 }
