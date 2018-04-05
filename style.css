@@ -48,17 +48,16 @@ h3 {
     font-size: 1.5rem;
 }
 
-#radar .dot {
-    font-size: 0.8rem;
-    cursor: pointer;
-}
+/* Element styles */
 
-.tech-circle text {
-    cursor: pointer;
+#radar svg {
+    min-width: 500px;
 }
 
 .tech-circle text,
 .tech-circle circle {
+    cursor: pointer;
+    font-size: 0.8rem;
     transition: 0.25s ease-in-out;
 }
 
@@ -118,7 +117,6 @@ ol li.clicked {
     #radar .legend {
         visibility: hidden;
     }
-
 
     .tech-circle.clicked text,
     .tech-circle.clicked circle {
