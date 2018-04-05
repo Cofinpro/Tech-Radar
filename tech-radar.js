@@ -111,10 +111,10 @@ function RadarChart(id, data) {
         .attr("text-anchor", "middle")
         .attr("dy", "0.35em")
         .attr("x", function (d, i) {
-            return rScale(cfg.labelFactor) * Math.cos(angleSlice * i - Math.PI / 4);
+            return rScale(cfg.labelFactor) * Math.cos(angleSlice * (i-1)  - Math.PI / 4);
         })
         .attr("y", function (d, i) {
-            return rScale(cfg.labelFactor) * Math.sin(angleSlice * i - Math.PI / 4);
+            return rScale(cfg.labelFactor) * Math.sin(angleSlice * (i-1) - Math.PI / 4);
         })
         .text(function (d) {
             return d.name;
@@ -211,11 +211,14 @@ function enrichData(data) {
 
 function drawLegend(data, cfg) {
 
-    var legendSection = d3.select(".container")
+    const legendSection = d3.select(".container")
         .selectAll('div.legend')
         .data(data)
         .enter()
         .append("div")
+        .attr('class', function (d) {
+            return 'legend legend-' + d.name.toLowerCase()
+        });
 		.attr('class', function(d) {return 'legend legend-'+d.name.toLowerCase()});
 
     // append the heading
@@ -236,8 +239,8 @@ function drawLegend(data, cfg) {
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
-    const quarterStart = (Math.PI / 2) * quarter;
-    const quarterEnd = (Math.PI / 2) * (quarter + 1);
+    const quarterStart = (Math.PI / 2) * (quarter -1);
+    const quarterEnd = (Math.PI / 2) * (quarter );
 
     const quarterSize = quarterEnd - quarterStart;
     const quarterSpacePerDot = quarterSize / (dotCountInArea + 1);
@@ -289,7 +292,6 @@ function handleMouseOut() {
 }
 
 function handleMouseOver() {
-
     const technology = d3.select(this)
         .attr("data-technology");
 
