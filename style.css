@@ -6,7 +6,7 @@ body {
     line-height: 1.5rem;
 }
 
-// Lists
+/* Lists */
 ul,
 ol {
   margin-top: 1.5rem;
@@ -88,4 +88,8 @@ h3 {
 #radar {
     grid-column-start: 2;
     grid-row: 1 / span 2;
+}
+
+
+#radar .axisLabel {
 }
