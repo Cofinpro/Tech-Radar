@@ -178,7 +178,7 @@ function RadarChart(id, data) {
 
         });
 
-    drawLegend(data, cfg);
+	drawLegend(data, cfg);
 }
 
 /**
@@ -205,11 +205,12 @@ function enrichData(data) {
 
 function drawLegend(data, cfg) {
 
-    const legendSection = d3.select("#legend")
-        .selectAll('div')
+    var legendSection = d3.select(".container")
+        .selectAll('div.legend')
         .data(data)
         .enter()
-        .append("div");
+        .append("div")
+		.attr('class', function(d) {console.log(d);return 'legend legend-'+d.name.toLowerCase()});
 
     // append the heading
     legendSection
@@ -223,7 +224,7 @@ function drawLegend(data, cfg) {
         .data(function(d) { return d.items; })
         .enter()
         .append("li")
-        .attr("data-technology", function(d) {return escape(d.name.toLowerCase())})
+        .attr("data-technology", function(d) {return encodeURI(d.name.toLowerCase())})
 		.text(function (d) { return d.name });
 }
 
@@ -254,12 +255,9 @@ function handleMouseOut() {
         .attr("data-technology");
 
     d3.select(this)
-        .select('circle')
-		.attr('r',cfg.dotRadius)
-        .attr('class', 'radarCircle');
+        .attr('class', 'tech-circle');
 
-    d3.select("#legend")
-        .select("li[data-technology='"+technology+"']")
+    d3.select("li[data-technology='"+technology+"']")
         .attr('class', '');
 }
 
@@ -269,11 +267,8 @@ function handleMouseOver() {
         .attr("data-technology");
 
     d3.select(this)
-		.select('circle')
-		.attr('r', cfg.dotRadius * 2)
-		.attr('class', 'radarCircle active');
+		.attr('class', 'tech-circle active');
 
-    d3.select("#legend")
-		.select("li[data-technology='"+technology+"']")
+    d3.select("li[data-technology='"+technology+"']")
 		.attr('class', 'active');
 }

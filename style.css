@@ -57,5 +57,39 @@ h3 {
     cursor: pointer;
 }
 
+.tech-circle text {
+    cursor: pointer;
+}
+
+.tech-circle text,
+.tech-circle circle {
+    transition: 0.25s ease-in-out;
+}
+
+.tech-circle.active text,
+.tech-circle.active circle {
+    transform: scale(2);
+}
+
+.legend-integration {
+    grid-column-start: 1;
+    grid-row:2;
+}
+.legend-frontend {
+     grid-column-start: 3;
+}
+.legend-backend {
+    grid-column-start: 3;
+}
+.legend-plattform {
+    grid-column-start: 1;
+    grid-row:1;
+}
+#radar {
+    grid-column-start: 2;
+    grid-row: 1 / span 2;
+}
+
+
 #radar .axisLabel {
 }
