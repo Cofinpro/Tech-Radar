@@ -18,6 +18,12 @@ ol li {
   line-height: 1.8rem;
 }
 
+ul li,
+ol li.active {
+    color: red;
+    font-size: 1.5rem;
+}
+
 /* Headings */
 h1,
 h2,
@@ -48,4 +54,5 @@ h3 {
 
 #radar .dot {
     font-size: 0.8rem;
+    cursor: pointer;
 }
