@@ -2,31 +2,31 @@
 // Heavily inspired by radar chart from Nadieh Bremer //
 //	
 function RadarChart(id, data) {
-	var cfg = {
-		w: 600,				//Width of the circle
-		h: 600,				//Height of the circle
-		margin: { top: 20, right: 40, bottom: 20, left: 20 }, //The margins of the SVG
-		levels: 5,				//How many levels or inner circles should there be drawn
-		labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
-		opacityArea: 0.35, 	//The opacity of the area of the blob
-		dotRadius: 10, 			//The size of the colored circles of each blog
-		opacityCircles: 0.2, 	//The opacity of the circles of each blob
-		color: d3.schemeCategory10	//Color function
-	};
+    const cfg = {
+        w: 600,				//Width of the circle
+        h: 600,				//Height of the circle
+        margin: {top: 20, right: 40, bottom: 20, left: 20}, //The margins of the SVG
+        levels: 5,				//How many levels or inner circles should there be drawn
+        labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
+        opacityArea: 0.35, 	//The opacity of the area of the blob
+        dotRadius: 10, 			//The size of the colored circles of each blog
+        opacityCircles: 0.2, 	//The opacity of the circles of each blob
+        color: d3.schemeCategory10	//Color function
+    };
 
-	var axisLabels = ['', 'Adopt', 'Trail', 'Assess', 'Hold'].reverse();
+    const axisLabels = ['', 'Adopt', 'Trail', 'Assess', 'Hold'].reverse();
 
-	var allAxis = (d3.keys(data)),           	//Names of each axis
-		total = allAxis.length,					//The number of different axes
-		radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
-		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
+    const allAxis = (d3.keys(data)),           	//Names of each axis
+        total = allAxis.length,					//The number of different axes
+        radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
+        angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
 	//Scale for the radius
-	var rScale = d3.scaleLinear()
-		.range([0, radius])
-		.domain([0, 1]);
+    const rScale = d3.scaleLinear()
+        .range([0, radius])
+        .domain([0, 1]);
 
-	/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
 	//////////// Create the container SVG and g /////////////
 	/////////////////////////////////////////////////////////
 
@@ -34,33 +34,33 @@ function RadarChart(id, data) {
 	d3.select(id).select("svg").remove();
 	
 	//Initiate the radar chart SVG
-	var svg = d3.select(id).append("svg")
-			.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
-			.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
-			.attr("class", "radar"+id);
+    const svg = d3.select(id).append("svg")
+        .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
+        .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
+        .attr("class", "radar" + id);
 
-	var g = svg.append("g")
-			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
-	
+    const g = svg.append("g")
+        .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
-	/////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////
 	/////////////// Draw the Circular grid //////////////////
 	/////////////////////////////////////////////////////////
 
 	//Wrapper for the grid & axes
-	var axisGrid = g.append("g").attr("class", "axisWrapper");
+    const axisGrid = g.append("g").attr("class", "axisWrapper");
 
-	//Draw the background circles
+    //Draw the background circles
 	axisGrid.selectAll(".levels")
 		.data(d3.range(1, (cfg.levels + 1)).reverse())
 		.enter()
 		.append("circle")
 		.attr("class", "gridCircle")
-		.attr("r", function (d, i) { return radius / cfg.levels * d; })
+		.attr("r", function (d) { return radius / cfg.levels * d; })
 		.style("fill", "#CDCDCD")
 		.style("stroke", "#a9c5e8")
 		.style("stroke-dasharray", "5,5")
-		.style("fill-opacity", 0)
+		.style("fill-opacity", 0);
 
 	//Text indicating each stage
 	axisGrid.selectAll(".axisLabel")
@@ -79,12 +79,12 @@ function RadarChart(id, data) {
 	/////////////////////////////////////////////////////////
 
 	//Create the straight lines radiating outward from the center
-	var axis = axisGrid.selectAll(".axis")
-		.data(data)
-		.enter()
-		.append("g")
-		.attr("class", "axis");
-	//Append the lines
+    const axis = axisGrid.selectAll(".axis")
+        .data(data)
+        .enter()
+        .append("g")
+        .attr("class", "axis");
+    //Append the lines
 	axis.append("line")
 		.attr("x1", 0)
 		.attr("y1", 0)
@@ -108,29 +108,29 @@ function RadarChart(id, data) {
 	///////////// Draw the radar chart blobs ////////////////
 	/////////////////////////////////////////////////////////
 
-	console.log(data)
+	console.log(data);
 
 	enrichData(data);
 
-	console.log(data)
+	console.log(data);
 
 	// Create a dot for each technology in it's sector
-	var blobWrapper = g.selectAll(".radarWrapper")
-		.data(data)
-		.enter().append("g")
-		.attr("class", "radarWrapper")
-		.each(function (d, c) {
+    g.selectAll(".radarWrapper")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "radarWrapper")
+        .each(function (d, c) {
 
-			var radarCircle = d3.select(this).selectAll('.radarCircle')
-				.data(d.items)
-				.enter()
+            const radarCircle = d3.select(this).selectAll('.radarCircle')
+                .data(d.items)
+                .enter()
                 .append("g")
-                .attr("transform", function(innerData) {
-                    var position = determinePosition(c, d.circleCounts[innerData.circle], innerData.idInCircle);
-                    var scaleParam = determineScaleForSingleDot(innerData.circle, cfg, radius);
+                .attr("transform", function (innerData) {
+                    const position = determinePosition(c, d.circleCounts[innerData.circle], innerData.idInCircle);
+                    const scaleParam = determineScaleForSingleDot(innerData.circle, cfg, radius);
 
-                    var x = rScale(scaleParam) * Math.cos(position - Math.PI / 2);
-                    var y = rScale(scaleParam) * Math.sin(position - Math.PI / 2);
+                    const x = rScale(scaleParam) * Math.cos(position - Math.PI / 2);
+                    const y = rScale(scaleParam) * Math.sin(position - Math.PI / 2);
 
                     return "translate(" + x + "," + y + ")";
                 })
@@ -138,23 +138,27 @@ function RadarChart(id, data) {
                 .attr("data-technology", d.key);
 
             radarCircle.append('circle')
-				.attr("class", "radarCircle")
-				.attr("r", cfg.dotRadius)
-				.style("fill", function (d, i, j) { return cfg.color[c]; })
-				.style("fill-opacity", 0.8)
-				.append("title").text(function (d) { return d.name; });
+                .attr("class", "radarCircle")
+                .attr("r", cfg.dotRadius)
+                .style("fill", function () {
+                    return cfg.color[c];
+                })
+                .style("fill-opacity", 0.8)
+                .append("title").text(function (d) {
+                return d.name;
+            });
 
             radarCircle
                 .append("text").text(function (data) {
-                    return data.number;
-                })
+                return data.number;
+            })
                 .attr("fill", "white")
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "central");
 
-		});
+        });
 
-		drawLegend(data, cfg);
+    drawLegend(data, cfg);
 }
 
 /**
@@ -180,7 +184,7 @@ function enrichData(data) {
 
 function drawLegend(data, cfg) {
 
-    var legendSection = d3.select("#legend")
+    const legendSection = d3.select("#legend")
         .selectAll('div')
         .data(data)
         .enter()
@@ -201,26 +205,22 @@ function drawLegend(data, cfg) {
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
-	var quarterStart = (Math.PI / 2) * quarter;
-	var quarterEnd = (Math.PI / 2) * (quarter + 1);
+    const quarterStart = (Math.PI / 2) * quarter;
+    const quarterEnd = (Math.PI / 2) * (quarter + 1);
 
-	var quarterSize = quarterEnd - quarterStart;
-	var quarterSpacePerDot = quarterSize / (dotCountInArea + 1);
+    const quarterSize = quarterEnd - quarterStart;
+    const quarterSpacePerDot = quarterSize / (dotCountInArea + 1);
 
-	var position = quarterStart + (quarterSpacePerDot * dotNumber);
-
-	return position;
+    return quarterStart + (quarterSpacePerDot * dotNumber);
 }
 
 function determineScaleForSingleDot(level, cfg, radius) {
-	var halfCircleSizeInRelationToScale = (cfg.dotRadius / radius) / 2;
-	var oneCirclesShareOfScale = 1 / cfg.levels;
+    const halfCircleSizeInRelationToScale = (cfg.dotRadius / radius) / 2;
+    const oneCirclesShareOfScale = 1 / cfg.levels;
 
-	var beginOfScale = 0 + halfCircleSizeInRelationToScale;
-	var endOfScale = oneCirclesShareOfScale - halfCircleSizeInRelationToScale;
+    const beginOfScale = halfCircleSizeInRelationToScale;
+    const endOfScale = oneCirclesShareOfScale - halfCircleSizeInRelationToScale;
 
-	var randomPointOnShareOfScale = getRandomArbitrary(beginOfScale, endOfScale);
-	var scaleParam = ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
-
-	return scaleParam;
+    const randomPointOnShareOfScale = getRandomArbitrary(beginOfScale, endOfScale);
+    return ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 }
