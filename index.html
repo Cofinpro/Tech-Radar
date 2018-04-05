@@ -15,56 +15,53 @@
     </div>
 
     <script>
-        var ADOPT = 1;
-        var TRIAL = 2;
-        var ASSESS = 3;
-        var HOLD = 4;
+        const ADOPT = 1, TRIAL = 2, ASSESS = 3, HOLD = 4;
 
-        var data = [
+        const data = [
             // Ranges in percentages: 100% is the center, 0% is outside
             {
                 name: 'Frontend',
                 items: [
-                    { name: 'Angular', circle: ADOPT },
-                    { name: 'JSF', circle: ADOPT },
-                    { name: 'd3', circle: TRIAL },
-                    { name: 'ionic', circle: TRIAL },
-                    { name: 'MVC-Spec', circle: ASSESS },
-                    { name: 'Lifereay/Vaadin', circle: HOLD },
-                    { name: 'Eclipse RCP', circle: HOLD },
+                    {name: 'Angular', circle: ADOPT},
+                    {name: 'JSF', circle: ADOPT},
+                    {name: 'd3', circle: TRIAL},
+                    {name: 'ionic', circle: TRIAL},
+                    {name: 'MVC-Spec', circle: ASSESS},
+                    {name: 'Lifereay/Vaadin', circle: HOLD},
+                    {name: 'Eclipse RCP', circle: HOLD},
                 ]
             }, {
                 name: 'Backend',
                 items: [
-                    { name: 'JavaEE', circle: ADOPT },
-                    { name: 'JAX-RS/RestEasy', circle: ADOPT },
-                    { name: 'JPA/Hiberante', circle: ADOPT },
-                    { name: 'JBoss Drools', circle: ADOPT },
-                    { name: '.NET', circle: TRIAL },
-                    { name: 'ElasticSearch', circle: TRIAL },
-                    { name: 'Spring', circle: HOLD },
+                    {name: 'JavaEE', circle: ADOPT},
+                    {name: 'JAX-RS/RestEasy', circle: ADOPT},
+                    {name: 'JPA/Hiberante', circle: ADOPT},
+                    {name: 'JBoss Drools', circle: ADOPT},
+                    {name: '.NET', circle: TRIAL},
+                    {name: 'ElasticSearch', circle: TRIAL},
+                    {name: 'Spring', circle: HOLD},
                 ]
             }, {
                 name: 'Integration',
                 items: [
-                    { name: 'Apache Camel', circle: ADOPT },
-                    { name: 'JSR 352/Spring Batch', circle: TRIAL },
-                    { name: 'AMQP', circle: ASSESS },
-                    { name: 'Talend', circle: HOLD },
-                    { name: 'Camunda BPM', circle: HOLD },
-                    { name: 'Apache Servicemix', circle: HOLD },
-                    { name: 'Flowable/Activiti', circle: HOLD },
+                    {name: 'Apache Camel', circle: ADOPT},
+                    {name: 'JSR 352/Spring Batch', circle: TRIAL},
+                    {name: 'AMQP', circle: ASSESS},
+                    {name: 'Talend', circle: HOLD},
+                    {name: 'Camunda BPM', circle: HOLD},
+                    {name: 'Apache Servicemix', circle: HOLD},
+                    {name: 'Flowable/Activiti', circle: HOLD},
                 ]
             }, {
                 name: 'Plattform',
                 items: [
-                    { name: 'JBoss/Wildfly', circle: ADOPT },
-                    { name: 'Maven', circle: ADOPT },
-                    { name: 'Node.js', circle: TRIAL },
-                    { name: 'Docker', circle: TRIAL },
-                    { name: 'Vagrant', circle: TRIAL },
-                    { name: 'Gitlab', circle: TRIAL },
-                    { name: 'Tomcat', circle: HOLD },
+                    {name: 'JBoss/Wildfly', circle: ADOPT},
+                    {name: 'Maven', circle: ADOPT},
+                    {name: 'Node.js', circle: TRIAL},
+                    {name: 'Docker', circle: TRIAL},
+                    {name: 'Vagrant', circle: TRIAL},
+                    {name: 'Gitlab', circle: TRIAL},
+                    {name: 'Tomcat', circle: HOLD},
                 ]
             },
         ];

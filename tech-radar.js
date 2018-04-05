@@ -35,9 +35,10 @@ function RadarChart(id, data) {
     d3.select(id).select("svg").remove();
 
     //Initiate the radar chart SVG
+    let width = cfg.w + cfg.margin.left + cfg.margin.right;
+    let height = cfg.h + cfg.margin.top + cfg.margin.bottom;
     const svg = d3.select(id).append("svg")
-        .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
-        .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
+        .attr("viewBox", "0 0 " + width + " " + height)
         .attr("class", "radar" + id);
 
     const g = svg.append("g")
