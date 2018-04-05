@@ -45,3 +45,16 @@ h3 {
     display: grid;
     grid-template-columns: 250px auto;
 }
+
+.tech-circle .radarCircle {
+    cursor: pointer;
+}
+
+.tech-circle text {
+    cursor: pointer;
+}
+
+li.active {
+    color: red;
+    font-size: 25px;
+}

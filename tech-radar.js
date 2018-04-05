@@ -1,18 +1,19 @@
 //
 // Heavily inspired by radar chart from Nadieh Bremer //
-//	
+//
+var cfg = {
+    w: 600,				//Width of the circle
+    h: 600,				//Height of the circle
+    margin: { top: 20, right: 40, bottom: 20, left: 20 }, //The margins of the SVG
+    levels: 5,				//How many levels or inner circles should there be drawn
+    labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
+    opacityArea: 0.35, 	//The opacity of the area of the blob
+    dotRadius: 10, 			//The size of the colored circles of each blog
+    opacityCircles: 0.2, 	//The opacity of the circles of each blob
+    color: d3.schemeCategory10	//Color function
+};
+
 function RadarChart(id, data) {
-	var cfg = {
-		w: 600,				//Width of the circle
-		h: 600,				//Height of the circle
-		margin: { top: 20, right: 40, bottom: 20, left: 20 }, //The margins of the SVG
-		levels: 5,				//How many levels or inner circles should there be drawn
-		labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
-		opacityArea: 0.35, 	//The opacity of the area of the blob
-		dotRadius: 10, 			//The size of the colored circles of each blog
-		opacityCircles: 0.2, 	//The opacity of the circles of each blob
-		color: d3.schemeCategory10	//Color function
-	};
 
 	var axisLabels = ['', 'Adopt', 'Trail', 'Assess', 'Hold'].reverse();
 
@@ -135,7 +136,9 @@ function RadarChart(id, data) {
                     return "translate(" + x + "," + y + ")";
                 })
                 .attr("class", "tech-circle")
-                .attr("data-technology", d.key);
+                .attr("data-technology", function(d) {return escape(d.name.toLowerCase())})
+                .on("mouseover", handleMouseOver)
+        		.on("mouseout", handleMouseOut);
 
             radarCircle.append('circle')
 				.attr("class", "radarCircle")
@@ -154,7 +157,7 @@ function RadarChart(id, data) {
 
 		});
 
-		drawLegend(data, cfg);
+	drawLegend(data, cfg);
 }
 
 /**
@@ -197,7 +200,9 @@ function drawLegend(data, cfg) {
         .selectAll('li')
         .data(function(d) { return d.items; })
         .enter()
-        .append("li").text(function (d) { return d.name });
+        .append("li")
+        .attr("data-technology", function(d) {return escape(d.name.toLowerCase())})
+		.text(function (d) { return d.name });
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
@@ -223,4 +228,34 @@ function determineScaleForSingleDot(level, cfg, radius) {
 	var scaleParam = ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 
 	return scaleParam;
+}
+
+function handleMouseOut() {
+
+    var technology = d3.select(this)
+        .attr("data-technology");
+
+    d3.select(this)
+        .select('circle')
+		.attr('r',cfg.dotRadius)
+        .attr('class', 'radarCircle');
+
+    d3.select("#legend")
+        .select("li[data-technology='"+technology+"']")
+        .attr('class', '');
+}
+
+function handleMouseOver() {
+
+    var technology = d3.select(this)
+        .attr("data-technology");
+
+    d3.select(this)
+		.select('circle')
+		.attr('r', cfg.dotRadius * 2)
+		.attr('class', 'radarCircle active');
+
+    d3.select("#legend")
+		.select("li[data-technology='"+technology+"']")
+		.attr('class', 'active');
 }
