@@ -20,10 +20,8 @@ ol li {
 }
 
 ul li,
-ol li.active,
-ol li.clicked {
+ol li.active {
     color: red;
-    font-size: 1.5rem;
 }
 
 /* Headings */
@@ -69,11 +67,6 @@ h3 {
     transform: scale(2);
 }
 
-.tech-circle.clicked text,
-.tech-circle.clicked circle {
-    transform: scale(2);
-}
-
 
 #radar svg {
     min-width: 500px;
@@ -116,5 +109,15 @@ h3 {
 
     #radar .legend {
         visibility: hidden;
+    }
+
+
+    .tech-circle.clicked text,
+    .tech-circle.clicked circle {
+        transform: scale(2);
+    }
+
+    ol li.clicked {
+        color: red;
     }
 }

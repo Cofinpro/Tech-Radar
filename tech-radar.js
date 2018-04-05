@@ -217,9 +217,9 @@ function drawLegend(data, cfg) {
         .enter()
         .append("div")
         .attr('class', function (d) {
-            console.log(d);
             return 'legend legend-' + d.name.toLowerCase()
-        });
+        })
+		.attr('class', function(d) {return 'legend legend-'+d.name.toLowerCase()});
 
     // append the heading
     legendSection
@@ -260,6 +260,14 @@ function determineScaleForSingleDot(level, cfg, radius) {
 }
 
 function handleClick() {
+
+    /*
+    * First remove all click-handlers
+     */
+    d3.selectAll('.tech-circle')
+        .classed('clicked', false);
+    d3.selectAll('.legend li')
+        .classed('clicked', false);
 
     const technology = d3.select(this)
         .attr("data-technology");
