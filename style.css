@@ -67,6 +67,14 @@ h3 {
     transform: scale(2);
 }
 
+.tech-circle.clicked text,
+.tech-circle.clicked circle {
+    transform: scale(2);
+}
+
+ol li.clicked {
+    color: red;
+}
 
 #radar svg {
     min-width: 500px;

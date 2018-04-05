@@ -123,12 +123,7 @@ function RadarChart(id, data) {
     /////////////////////////////////////////////////////////
     ///////////// Draw the radar chart blobs ////////////////
     /////////////////////////////////////////////////////////
-
-    console.log(data);
-
     enrichData(data);
-
-    console.log(data);
 
     // Create a dot for each technology in it's sector
     g.selectAll(".radarWrapper")
@@ -255,6 +250,9 @@ function determineScaleForSingleDot(level, cfg, radius) {
     const beginOfScale = halfCircleSizeInRelationToScale;
     const endOfScale = oneCirclesShareOfScale - halfCircleSizeInRelationToScale;
 
+    // If we have level 1, then draw on circle 0 or 1
+    level = level === 1 ? getRandomArbitrary(0,1) : level;
+
     const randomPointOnShareOfScale = getRandomArbitrary(beginOfScale, endOfScale);
     return ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 }
@@ -291,7 +289,7 @@ function handleMouseOut() {
         .classed('active', false);
 }
 
-function handleMouseOver() {
+function handleMouseOver(d, i) {
     const technology = d3.select(this)
         .attr("data-technology");
 
