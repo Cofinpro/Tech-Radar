@@ -68,15 +68,14 @@ function RadarChart(id, data) {
     //Text indicating each stage
     axisGrid.selectAll(".axisLabel")
         .data(d3.range(1, (cfg.levels + 1)).reverse())
-        .enter().append("text")
+        .enter()
+        .append("text")
         .attr("class", "axisLabel")
         .attr("x", 4)
         .attr("y", function (d) {
             return -(d - 1) * radius / cfg.levels - 10;
         })
         .attr("dy", "0.4em")
-        .style("font-size", "12px")
-        .attr("fill", "#ec7b1a")
         .text(function (d, i) {
             return axisLabels[i];
         });
