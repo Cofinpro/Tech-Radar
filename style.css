@@ -54,6 +54,10 @@ h3 {
     min-width: 500px;
 }
 
+#radar .axisLabel {
+    font-size: 1rem;
+}
+
 .tech-circle text,
 .tech-circle circle {
     cursor: pointer;

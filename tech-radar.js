@@ -54,17 +54,16 @@ function RadarChart(id, data) {
 
     //Draw the background circles
     axisGrid.selectAll(".levels")
-        .data(d3.range(1, (cfg.levels + 1)).reverse())
+        .data(d3.range(1, cfg.levels).reverse())
         .enter()
         .append("circle")
         .attr("class", "gridCircle")
         .attr("r", function (d) {
-            return radius / cfg.levels * d;
+            return radius / cfg.levels * (d+1);
         })
-        .style("fill", "#CDCDCD")
+        .style("fill", "transparent")
         .style("stroke", "#a9c5e8")
-        .style("stroke-dasharray", "5,5")
-        .style("fill-opacity", 0);
+        .style("stroke-dasharray", "5,5");
 
     //Text indicating each stage
     axisGrid.selectAll(".axisLabel")
@@ -74,7 +73,7 @@ function RadarChart(id, data) {
         .attr("class", "axisLabel")
         .attr("x", 4)
         .attr("y", function (d) {
-            return -(d - 1) * radius / cfg.levels - 10;
+            return -(d === 2 ? 0 : d-1) * radius / cfg.levels - 12;
         })
         .attr("dy", "0.4em")
         .text(function (d, i) {
@@ -197,10 +196,14 @@ function enrichData(data) {
     let technologyNumber = 1;
     data.forEach(function(section) {
 		section.circleCounts = {1:0, 2:0, 3:0, 4:0};
+        section.items.sort(function (a,b) {
+            return a.circle - b.circle;
+        });
 		section.items.forEach(function(technology) {
             technology.idInCircle = ++section.circleCounts[technology.circle];
             technology.number = technologyNumber++;
 		});
+
     });
 }
 
@@ -289,7 +292,7 @@ function handleMouseOut() {
         .classed('active', false);
 }
 
-function handleMouseOver(d, i) {
+function handleMouseOver() {
     const technology = d3.select(this)
         .attr("data-technology");
 
