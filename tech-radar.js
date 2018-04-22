@@ -252,6 +252,9 @@ function handleClick() {
     d3.selectAll(`.legend li`)
         .filter(d => d === technology)
         .classed('clicked', true);
+
+    // follow the href
+    return true;
 }
 
 function handleMouseOut() {
