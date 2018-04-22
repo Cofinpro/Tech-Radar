@@ -19,9 +19,10 @@ ol li {
     line-height: 1.8rem;
 }
 
-ul li,
-ol li.active {
-    color: red;
+ol li.active,
+ol li.clicked {
+    font-weight: bold;
+    color: slategray;
 }
 
 /* Headings */
@@ -51,7 +52,7 @@ h3 {
 /* Element styles */
 
 #radar svg {
-    min-width: 500px;
+    min-width: 300px;
 }
 
 #radar .axisLabel {
@@ -66,21 +67,19 @@ h3 {
 }
 
 .tech-circle.active text,
-.tech-circle.active circle {
-    transform: scale(2);
-}
-
+.tech-circle.active circle,
 .tech-circle.clicked text,
 .tech-circle.clicked circle {
     transform: scale(2);
 }
 
-ol li.clicked {
-    color: red;
+#radar svg {
+    min-width: 300px;
 }
 
-#radar svg {
-    min-width: 500px;
+.legend a {
+    color: inherit;
+    text-decoration: none;
 }
 
 @media (min-width: 1000px) {
@@ -122,12 +121,7 @@ ol li.clicked {
         visibility: hidden;
     }
 
-    .tech-circle.clicked text,
-    .tech-circle.clicked circle {
-        transform: scale(2);
-    }
-
-    ol li.clicked {
-        color: red;
+    #radar svg {
+        min-width: 500px;
     }
 }

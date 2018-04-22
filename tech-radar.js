@@ -7,9 +7,7 @@ const cfg = {
     margin: {top: 20, right: 40, bottom: 20, left: 20}, //The margins of the SVG
     levels: 5,				//How many levels or inner circles should there be drawn
     labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
-    opacityArea: 0.35, 	//The opacity of the area of the blob
     dotRadius: 10, 			//The size of the colored circles of each blog
-    opacityCircles: 0.2, 	//The opacity of the circles of each blob
     color: d3.schemeCategory10	//Color function
 };
 
@@ -38,8 +36,8 @@ function RadarChart(id, data) {
     let width = cfg.w + cfg.margin.left + cfg.margin.right;
     let height = cfg.h + cfg.margin.top + cfg.margin.bottom;
     const svg = d3.select(id).append("svg")
-        .attr("viewBox", "0 0 " + width + " " + height)
-        .attr("class", "radar" + id);
+        .attr('id', 'radarChart')
+        .attr("viewBox", `0 0 ${width} ${height}`);
 
     const g = svg.append("g")
         .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
@@ -59,7 +57,7 @@ function RadarChart(id, data) {
         .append("circle")
         .attr("class", "gridCircle")
         .attr("r", function (d) {
-            return radius / cfg.levels * (d+1);
+            return radius / cfg.levels * (d + 1);
         })
         .style("fill", "transparent")
         .style("stroke", "#a9c5e8")
@@ -73,12 +71,10 @@ function RadarChart(id, data) {
         .attr("class", "axisLabel")
         .attr("x", 4)
         .attr("y", function (d) {
-            return -(d === 2 ? 0 : d-1) * radius / cfg.levels - 12;
+            return -(d === 2 ? 0 : d - 1) * radius / cfg.levels - 12;
         })
         .attr("dy", "0.4em")
-        .text(function (d, i) {
-            return axisLabels[i];
-        });
+        .text((d, i) => axisLabels[i]);
 
     /////////////////////////////////////////////////////////
     //////////////////// Draw the axes //////////////////////
@@ -94,12 +90,8 @@ function RadarChart(id, data) {
     axis.append("line")
         .attr("x1", 0)
         .attr("y1", 0)
-        .attr("x2", function (d, i) {
-            return rScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2);
-        })
-        .attr("y2", function (d, i) {
-            return rScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2);
-        })
+        .attr("x2", (d, i) => rScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2))
+        .attr("y2", (d, i) => rScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2))
         .attr("class", "line")
         .style("stroke", "#a9c5e8")
         .style("stroke-width", "1px");
@@ -110,10 +102,10 @@ function RadarChart(id, data) {
         .attr("text-anchor", "middle")
         .attr("dy", "0.35em")
         .attr("x", function (d, i) {
-            return rScale(cfg.labelFactor) * Math.cos(angleSlice * (i-1)  - Math.PI / 4);
+            return rScale(cfg.labelFactor) * Math.cos(angleSlice * (i - 1) - Math.PI / 4);
         })
         .attr("y", function (d, i) {
-            return rScale(cfg.labelFactor) * Math.sin(angleSlice * (i-1) - Math.PI / 4);
+            return rScale(cfg.labelFactor) * Math.sin(angleSlice * (i - 1) - Math.PI / 4);
         })
         .text(function (d) {
             return d.name;
@@ -129,25 +121,22 @@ function RadarChart(id, data) {
         .data(data)
         .enter().append("g")
         .attr("class", "radarWrapper")
-        .each(function (d, c) {
+        .each(function (techSectionData, c) {
 
             const radarCircle = d3.select(this).selectAll('.radarCircle')
-                .data(d.items)
+                .data(techSectionData.items)
                 .enter()
                 .append("g")
                 .attr("transform", function (innerData) {
-                    const position = determinePosition(c, d.circleCounts[innerData.circle], innerData.idInCircle);
+                    const position = determinePosition(c, techSectionData.circleCounts[innerData.circle], innerData.idInCircle);
                     const scaleParam = determineScaleForSingleDot(innerData.circle, cfg, radius);
 
                     const x = rScale(scaleParam) * Math.cos(position - Math.PI / 2);
                     const y = rScale(scaleParam) * Math.sin(position - Math.PI / 2);
 
-                    return "translate(" + x + "," + y + ")";
+                    return `translate(${x}, ${y})`;
                 })
                 .attr("class", "tech-circle")
-                .attr("data-technology", function (d) {
-                    return encodeURI(d.name.toLowerCase())
-                })
                 .on("click", handleClick)
                 .on("mouseover", handleMouseOver)
                 .on("mouseout", handleMouseOut);
@@ -155,22 +144,14 @@ function RadarChart(id, data) {
             radarCircle.append('circle')
                 .attr("class", "radarCircle")
                 .attr("r", cfg.dotRadius)
-                .style("fill", function () {
-                    return cfg.color[c];
-                })
+                .style("fill", () => cfg.color[c])
                 .style("fill-opacity", 0.8)
-                .append("title").text(function (d) {
-                return d.name;
-            });
+                .append("title").text(d => d.name);
 
             radarCircle
                 .append('a')
-                .attr('href', function (d) {
-                    return '#'+encodeURI(d.name.toLowerCase());
-                })
-                .append("text").text(function (data) {
-                return data.number;
-            })
+                .attr('href', () => `#${techSectionData.name}`)
+                .append("text").text(data => data.number)
                 .attr("class", "dot")
                 .attr("fill", "white")
                 .attr("text-anchor", "middle")
@@ -178,14 +159,14 @@ function RadarChart(id, data) {
 
         });
 
-	drawLegend(data, cfg);
+    drawLegend(data, cfg);
 }
 
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
  */
 function getRandomArbitrary(min, max) {
-	return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min;
 }
 
 /**
@@ -194,15 +175,13 @@ function getRandomArbitrary(min, max) {
  */
 function enrichData(data) {
     let technologyNumber = 1;
-    data.forEach(function(section) {
-		section.circleCounts = {1:0, 2:0, 3:0, 4:0};
-        section.items.sort(function (a,b) {
-            return a.circle - b.circle;
-        });
-		section.items.forEach(function(technology) {
+    data.forEach(function (section) {
+        section.circleCounts = {1: 0, 2: 0, 3: 0, 4: 0};
+        section.items.sort((a, b) => a.circle - b.circle);
+        section.items.forEach(function (technology) {
             technology.idInCircle = ++section.circleCounts[technology.circle];
             technology.number = technologyNumber++;
-		});
+        });
 
     });
 }
@@ -214,31 +193,30 @@ function drawLegend(data, cfg) {
         .data(data)
         .enter()
         .append("div")
-        .attr('class', function (d) {
-            return 'legend legend-' + d.name.toLowerCase()
-        })
-		.attr('class', function(d) {return 'legend legend-'+d.name.toLowerCase()});
+        .attr('class', d => `legend legend-${d.name.toLowerCase()}`);
 
     // append the heading
     legendSection
-        .append("h2").text(function (d) { return d.name; })
-        .style("color", function (d, i) { return cfg.color[i]; });
+        .append("h2").text(d => d.name)
+        .style("color", (d, i) => cfg.color[i])
+        .attr('id', d => d.name);
 
     // append the list
     legendSection.append("ol")
-        .attr('start', function(d) { return d.items[0].number; })
+        .attr('start', d => d.items[0].number)
         .selectAll('li')
-        .data(function(d) { return d.items; })
+        .data(d => d.items)
         .enter()
         .append("li")
-        .attr("data-technology", function(d) {return encodeURI(d.name.toLowerCase())})
-        .attr('id', function(d) {return encodeURI(d.name.toLowerCase())})
-		.text(function (d) { return d.name });
+        .append("a")
+        .attr("href", '#radarChart')
+        .on("click", handleClick)
+        .text(d => d.name);
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
-    const quarterStart = (Math.PI / 2) * (quarter -1);
-    const quarterEnd = (Math.PI / 2) * (quarter );
+    const quarterStart = (Math.PI / 2) * (quarter - 1);
+    const quarterEnd = (Math.PI / 2) * (quarter);
 
     const quarterSize = quarterEnd - quarterStart;
     const quarterSpacePerDot = quarterSize / (dotCountInArea + 1);
@@ -254,51 +232,41 @@ function determineScaleForSingleDot(level, cfg, radius) {
     const endOfScale = oneCirclesShareOfScale - halfCircleSizeInRelationToScale;
 
     // If we have level 1, then draw on circle 0 or 1
-    level = level === 1 ? getRandomArbitrary(0,1) : level;
+    level = level === 1 ? getRandomArbitrary(0, 1) : level;
 
     const randomPointOnShareOfScale = getRandomArbitrary(beginOfScale, endOfScale);
     return ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 }
 
 function handleClick() {
+    // First remove all click-handlers
+    d3.selectAll('.clicked')
+        .classed('clicked', false);
 
-    /*
-    * First remove all click-handlers
-     */
+    const technology = d3.select(this).datum();
+
     d3.selectAll('.tech-circle')
-        .classed('clicked', false);
-    d3.selectAll('.legend li')
-        .classed('clicked', false);
-
-    const technology = d3.select(this)
-        .attr("data-technology");
-
-    d3.select(this)
+        .filter(d => d === technology)
         .classed('clicked', true);
 
-    d3.select("li[data-technology='"+technology+"']")
+    d3.selectAll(`.legend li`)
+        .filter(d => d === technology)
         .classed('clicked', true);
 }
 
 function handleMouseOut() {
-
-    const technology = d3.select(this)
-        .attr("data-technology");
-
-    d3.select(this)
-        .classed('active', false);
-
-    d3.select("li[data-technology='"+technology+"']")
-        .classed('active', false);
+    toggleActive(this, false)
 }
 
 function handleMouseOver() {
-    const technology = d3.select(this)
-        .attr("data-technology");
+    toggleActive(this, true)
+}
 
-    d3.select(this)
-		.classed('active', true);
+function toggleActive(element, active) {
+    d3.select(element)
+        .classed('active', active);
 
-    d3.select("li[data-technology='"+technology+"']")
-		.classed('active', true);
+    d3.selectAll(`li`)
+        .filter(d => d === d3.select(element).datum())
+        .classed('active', active);
 }
