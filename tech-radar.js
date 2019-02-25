@@ -11,16 +11,6 @@ const cfg = {
     color: d3.schemeCategory10	//Color function
 };
 
-const grey = '#868e96';
-const orange = '#ec7b1a';
-const yellow = '#ffab00';
-const blue = '#a5c5e8';
-const brown = '#847575';
-
-const colors = [
-    orange, yellow, blue, brown
-];
-
 function RadarChart(id, data) {
 
     const axisLabels = ['', 'Adopt', 'Trail', 'Assess', 'Hold'].reverse();
@@ -70,12 +60,11 @@ function RadarChart(id, data) {
         .data(d3.range(1, cfg.levels).reverse())
         .enter()
         .append("circle")
-        .attr("class", "gridCircle")
+        .attr("class", "gridCircle, color-1")
         .attr("r", function (d) {
             return radius / cfg.levels * (d + 1);
         })
         .style("fill", "transparent")
-        .style("stroke", grey)
         .style("stroke-dasharray", "5,5");
 
     //Text indicating each stage
@@ -107,8 +96,7 @@ function RadarChart(id, data) {
         .attr("y1", 0)
         .attr("x2", (d, i) => rScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2))
         .attr("y2", (d, i) => rScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2))
-        .attr("class", "line")
-        .style("stroke", grey)
+        .attr("class", "line, color-1")
         .style("stroke-width", "1px");
 
     //Append the labels at each axis
@@ -154,8 +142,11 @@ function RadarChart(id, data) {
                 .attr("class", "tech-circle")
                 .on("click", handleClick)
                 .on("mouseover", function(d) {
-                    toggleActive(this, true);
+                    if (!d.tooltipText) {
+                        return;
+                    }
 
+                    toggleActive(this, true);
                     const tooltip = d3.select(".tooltip");
 
                     tooltip.transition()
@@ -181,9 +172,8 @@ function RadarChart(id, data) {
                 });
 
             radarCircle.append('circle')
-                .attr("class", "radarCircle")
+                .attr("class", "radarCircle, color-" + (c + 1))
                 .attr("r", cfg.dotRadius)
-                .style("fill", colors[c])
                 .style("fill-opacity", 0.8)
                 .append("title").text(d => d.name);
 
