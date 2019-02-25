@@ -4,10 +4,10 @@
 const cfg = {
     w: 600,				//Width of the circle
     h: 600,				//Height of the circle
-    margin: {top: 20, right: 40, bottom: 20, left: 20}, //The margins of the SVG
+    margin: {top: 10, right: 20, bottom: 10, left: 10}, //The margins of the SVG
     levels: 5,				//How many levels or inner circles should there be drawn
     labelFactor: 1.1, 	//How much farther than the radius of the outer circle should the labels be placed
-    dotRadius: 10, 			//The size of the colored circles of each blog
+    dotRadius: 15, 			//The size of the colored circles of each blog
     color: d3.schemeCategory10	//Color function
 };
 
@@ -24,6 +24,11 @@ function RadarChart(id, data) {
     const rScale = d3.scaleLinear()
         .range([0, radius])
         .domain([0, 1]);
+
+    d3.select("body .container")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 1);
 
     /////////////////////////////////////////////////////////
     //////////// Create the container SVG and g /////////////
@@ -55,12 +60,11 @@ function RadarChart(id, data) {
         .data(d3.range(1, cfg.levels).reverse())
         .enter()
         .append("circle")
-        .attr("class", "gridCircle")
+        .attr("class", "gridCircle, color-1")
         .attr("r", function (d) {
             return radius / cfg.levels * (d + 1);
         })
         .style("fill", "transparent")
-        .style("stroke", "#a9c5e8")
         .style("stroke-dasharray", "5,5");
 
     //Text indicating each stage
@@ -92,8 +96,7 @@ function RadarChart(id, data) {
         .attr("y1", 0)
         .attr("x2", (d, i) => rScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2))
         .attr("y2", (d, i) => rScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2))
-        .attr("class", "line")
-        .style("stroke", "#a9c5e8")
+        .attr("class", "line, color-1")
         .style("stroke-width", "1px");
 
     //Append the labels at each axis
@@ -138,13 +141,39 @@ function RadarChart(id, data) {
                 })
                 .attr("class", "tech-circle")
                 .on("click", handleClick)
-                .on("mouseover", handleMouseOver)
-                .on("mouseout", handleMouseOut);
+                .on("mouseover", function(d) {
+                    if (!d.tooltipText) {
+                        return;
+                    }
+
+                    toggleActive(this, true);
+                    const tooltip = d3.select(".tooltip");
+
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+
+                    tooltip
+                        .classed('legend-'+techSectionData.name.toLowerCase(), true)
+                        .classed('active', true);
+
+                    tooltip.html(d.tooltipText)
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 50) + "px");
+                })
+                .on("mouseout", function(d) {
+                    toggleActive(this, false);
+
+                    const tooltip = d3.select(".tooltip");
+
+                    tooltip
+                    .classed('legend-'+techSectionData.name.toLowerCase(), false)
+                    .classed('active', false);
+                });
 
             radarCircle.append('circle')
-                .attr("class", "radarCircle")
+                .attr("class", "radarCircle, color-" + (c + 1))
                 .attr("r", cfg.dotRadius)
-                .style("fill", () => cfg.color[c])
                 .style("fill-opacity", 0.8)
                 .append("title").text(d => d.name);
 
@@ -158,8 +187,33 @@ function RadarChart(id, data) {
                 .attr("dominant-baseline", "central");
 
         });
+}
 
-    drawLegend(data, cfg);
+function drawLegend(data, side) {
+
+    const legendSection = d3.select(".container .legend-"+side)
+        .selectAll('div.legend')
+        .data(data)
+        .enter()
+        .append("div")
+        .attr('class', d => `legend legend-${d.name.toLowerCase()}`);
+
+    // append the heading
+    legendSection
+        .append("h3").text(d => d.name)
+        .attr('id', d => d.name);
+
+    // append the list
+    legendSection.append("ol")
+        .attr('start', d => d.items[0].number)
+        .selectAll('li')
+        .data(d => d.items)
+        .enter()
+        .append("li")
+        .append("a")
+        .attr("href", '#radarChart')
+        .on("click", handleClick)
+        .text(d => d.name);
 }
 
 /**
@@ -168,6 +222,8 @@ function RadarChart(id, data) {
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+
 
 /**
  * Assign a number to each technology and calculate the total number of technologies
@@ -184,34 +240,6 @@ function enrichData(data) {
         });
 
     });
-}
-
-function drawLegend(data, cfg) {
-
-    const legendSection = d3.select(".container")
-        .selectAll('div.legend')
-        .data(data)
-        .enter()
-        .append("div")
-        .attr('class', d => `legend legend-${d.name.toLowerCase()}`);
-
-    // append the heading
-    legendSection
-        .append("h2").text(d => d.name)
-        .style("color", (d, i) => cfg.color[i])
-        .attr('id', d => d.name);
-
-    // append the list
-    legendSection.append("ol")
-        .attr('start', d => d.items[0].number)
-        .selectAll('li')
-        .data(d => d.items)
-        .enter()
-        .append("li")
-        .append("a")
-        .attr("href", '#radarChart')
-        .on("click", handleClick)
-        .text(d => d.name);
 }
 
 function determinePosition(quarter, dotCountInArea, dotNumber) {
@@ -257,16 +285,11 @@ function handleClick() {
     return true;
 }
 
-function handleMouseOut() {
-    toggleActive(this, false)
-}
-
-function handleMouseOver() {
-    toggleActive(this, true)
-}
-
 function toggleActive(element, active) {
     d3.select(element)
+        .classed('active', active);
+
+    d3.select(".tooltip")
         .classed('active', active);
 
     d3.selectAll(`li`)
