@@ -3,20 +3,14 @@ body {
     padding: 0 20px;
     max-width: 1200px;
     font-family: sans-serif;
-    font-size: 130%;
-    line-height: 1.5rem;
+    font-size: 1.3em;
+    line-height: 1.5em;
 }
 
 /* Lists */
-ul,
-ol {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
 ul li,
 ol li {
-    line-height: 1.8rem;
+    line-height: 1.5em;
 }
 
 ol li.active,
@@ -26,23 +20,12 @@ ol li.clicked {
 }
 
 /* Headings */
-h1,
-h2,
-h3 {
-    margin-top: 1.5rem;
-    margin-bottom: 0;
-}
-
 h1 {
     font-size: 4.25rem;
-    line-height: 4.5rem;
-    margin-top: 3rem;
 }
 
 h2 {
     font-size: 2.75rem;
-    line-height: 3rem;
-    margin-top: 3rem;
 }
 
 h3 {
@@ -50,7 +33,6 @@ h3 {
 }
 
 /* Element styles */
-
 #radar svg {
     min-width: 300px;
 }
@@ -82,66 +64,55 @@ h3 {
     text-decoration: none;
 }
 
-.tooltip {
-    display: none;
-    position: absolute;
-    padding: 5px;
-    border: 2px dashed;
-    background: #FFF;
+.legend-0 {
+    grid-column: 1;
+    grid-row: 1;
 }
 
-.tooltip.active {
-    display: block;
+.legend-1 {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.legend-2 {
+    grid-column: 3;
+    grid-row: 2
+}
+
+.legend-3 {
+    grid-column: 1;
+    grid-row: 2;
 }
 
 /* COLORS */
 .color-1 {
+    color: #868e96;
     fill: #868e96;
     stroke:  #868e96;
 }
 
 .color-2 {
+    color: #ec7b1a;
     fill: #ec7b1a;
+    stroke: #ec7b1a;
 }
 
 .color-3 {
-    fill: #ffab00;
+    color: #fadceb;
+    fill: #fadceb;
+    stroke: #fadceb;
 }
 
 .color-4 {
+    color: #a5c5e8;
     fill: #a5c5e8;
+    stroke: #a5c5e8;
 }
 
 .color-5 {
-    fill: #847575;
-}
-
-.legend-frontend.tooltip,
-.legend-frontend .active,
-.legend-frontend .clicked,
-.legend-frontend h3 {
-    color: #ec7b1a;
-}
-
-.legend-plattform.tooltip,
-.legend-plattform .active,
-.legend-plattform .clicked,
-.legend-plattform h3 {
     color: #847575;
-}
-
-.legend-integration.tooltip,
-.legend-integration .active,
-.legend-integration .clicked,
-.legend-integration h3 {
-    color: #a5c5e8;
-}
-
-.legend-backend.tooltip,
-.legend-backend .active,
-.legend-backend .clicked,
-.legend-backend h3 {
-    color: #ffab00;
+    fill: #847575;
+    stroke: #847575;
 }
 
 @media (min-width: 1000px) {
@@ -150,16 +121,6 @@ h3 {
         display: grid;
         grid-template-columns: 200px auto;
         grid-column-gap: 20px;
-    }
-
-    .legend-left {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    .legend-right {
-        grid-column: 3;
-        grid-row: 1;
     }
 
     #radar {

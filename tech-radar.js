@@ -140,36 +140,7 @@ function RadarChart(id, data) {
                     return `translate(${x}, ${y})`;
                 })
                 .attr("class", "tech-circle")
-                .on("click", handleClick)
-                .on("mouseover", function(d) {
-                    if (!d.tooltipText) {
-                        return;
-                    }
-
-                    toggleActive(this, true);
-                    const tooltip = d3.select(".tooltip");
-
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-
-                    tooltip
-                        .classed('legend-'+techSectionData.name.toLowerCase(), true)
-                        .classed('active', true);
-
-                    tooltip.html(d.tooltipText)
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 50) + "px");
-                })
-                .on("mouseout", function(d) {
-                    toggleActive(this, false);
-
-                    const tooltip = d3.select(".tooltip");
-
-                    tooltip
-                    .classed('legend-'+techSectionData.name.toLowerCase(), false)
-                    .classed('active', false);
-                });
+                .on("click", handleClick);
 
             radarCircle.append('circle')
                 .attr("class", "radarCircle, color-" + (c + 1))
@@ -187,21 +158,20 @@ function RadarChart(id, data) {
                 .attr("dominant-baseline", "central");
 
         });
-}
 
-function drawLegend(data, side) {
-
-    const legendSection = d3.select(".container .legend-"+side)
+    // draw the legend
+    const legendSection = d3.select(".container")
         .selectAll('div.legend')
         .data(data)
         .enter()
         .append("div")
-        .attr('class', d => `legend legend-${d.name.toLowerCase()}`);
+        .attr('class', (d, i) => `legend legend-${i}`);
 
     // append the heading
     legendSection
         .append("h3").text(d => d.name)
-        .attr('id', d => d.name);
+        .attr('id', d => d.name)
+        .attr('class', (d, i) => 'color-' + (i + 1));
 
     // append the list
     legendSection.append("ol")
@@ -222,7 +192,6 @@ function drawLegend(data, side) {
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
-
 
 
 /**
@@ -266,7 +235,7 @@ function determineScaleForSingleDot(level, cfg, radius) {
     return ((level + 1) * oneCirclesShareOfScale) - randomPointOnShareOfScale;
 }
 
-function handleClick() {
+function handleClick(d) {
     // First remove all click-handlers
     d3.selectAll('.clicked')
         .classed('clicked', false);
@@ -281,18 +250,11 @@ function handleClick() {
         .filter(d => d === technology)
         .classed('clicked', true);
 
+    d3.text(encodeURI(`tech/${d.name.toLocaleLowerCase()}.html`))
+        .then(text => d3.select('#tech-info').html(text));
+
     // follow the href
     return true;
 }
 
-function toggleActive(element, active) {
-    d3.select(element)
-        .classed('active', active);
-
-    d3.select(".tooltip")
-        .classed('active', active);
-
-    d3.selectAll(`li`)
-        .filter(d => d === d3.select(element).datum())
-        .classed('active', active);
-}
+RadarChart(data);

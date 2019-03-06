@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
     <script src="d3.min.js" ></script>
-    <script src="tech-radar.js"></script>
+    <script src="tech-radar.js">
+    </script>
 </head>
 
 <body>
@@ -17,11 +18,13 @@
         <div class="legend-right col-md-2"></div>
     </div>
 
+    <div id="tech-info">
+        Some info about this
+    </div>
     <script>
         const ADOPT = 1, TRIAL = 2, ASSESS = 3, HOLD = 4;
 
         const data = [
-            // Ranges in percentages: 100% is the center, 0% is outside
             {
                 name: 'Frontend',
                 items: [
@@ -74,8 +77,7 @@
             }
         ];
         RadarChart("#radar", data);
-        drawLegend([data[0], data[3]], 'left');
-        drawLegend([data[1], data[2]], 'right');
+
     </script>
 </body>
 
