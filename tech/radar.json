@@ -3,47 +3,56 @@
     "name": "Frontend",
     "items": [
       {"name": "Angular", "circle": 1},
-      {"name": "JSF", "circle": 1},
+      {"name": "React", "circle": 2},
+      {"name": "Vue.js", "circle": 3},
       {"name": "d3", "circle": 2},
       {"name": "ionic", "circle": 2},
       {"name": "MVC-Spec", "circle": 3},
-      {"name": "Liferay/Vaadin", "circle": 4}
+      {"name": "Android", "circle": 3},
+      {"name": "Liferay/Vaadin", "circle": 4},
+      {"name": "JSF", "circle": 4}
     ]
   },
   {
     "name": "Backend",
     "items": [
       {"name": "JavaEE", "circle": 1},
-      {"name": "JAX-RS", "circle": 1},
       {"name": "JPA/Hibernate", "circle": 1},
-      {"name": "JBoss Drools", "circle": 1},
       {"name": ".NET", "circle": 2},
-      {"name": "ElasticSearch", "circle": 2},
-      {"name": "Spring (Boot)", "circle": 3}
+      {"name": "Python", "circle": 2},
+      {"name": "Spring (Boot)", "circle": 2},
+      {"name": "MongoDB", "circle": 3},
+      {"name": "MicroProfile", "circle": 3},
+      {"name": "JBoss Drools", "circle": 4},
+      {"name": "ElasticSearch", "circle": 4},
+      {"name": "Apache Camel", "circle": 4}
     ]
   },
   {
-    "name": "Integration",
+    "name": "Tools",
     "items": [
-      {"name": "Apache Camel", "circle": 1},
-      {"name": "JSR 352/Spring Batch", "circle": 2},
-      {"name": "AMQP", "circle": 3},
-      {"name": "Talend", "circle": 4},
-      {"name": "Camunda BPM", "circle": 4},
-      {"name": "Apache Servicemix", "circle": 4},
-      {"name": "Flowable/Activiti", "circle": 4}
+      {"name": "Jenkins", "circle": 1},
+      {"name": "Maven", "circle": 1},
+      {"name": "Junit", "circle": 1},
+      {"name": "Sonarqube", "circle": 1},
+      {"name": "Gradle", "circle": 2},
+      {"name": "Vagrant", "circle": 4},
+      {"name": "Rundeck", "circle": 2},
+      {"name": "Bamboo", "circle": 3},
+      {"name": "Robot Framework", "circle": 3},
+      {"name": "PACT", "circle": 3}
     ]
   },
   {
     "name": "Plattform",
     "items": [
       {"name": "Wildfly", "circle": 1},
-      {"name": "Maven", "circle": 1},
-      {"name": "Gradle", "circle": 2},
+      {"name": "OAuth/Keycloak", "circle": 2},
       {"name": "Node.js", "circle": 2},
       {"name": "Docker", "circle": 2},
-      {"name": "Vagrant", "circle": 2},
       {"name": "Gitlab", "circle": 2},
+      {"name": "Icinga2", "circle": 2},
+      {"name": "OpenShift", "circle": 3},
       {"name": "Tomcat", "circle": 4}
     ]
   }

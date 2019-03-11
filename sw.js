@@ -1,6 +1,21 @@
+const CACHE_NAME="tech-radar-v2";
+
+self.addEventListener("activate", function(event) {
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (CACHE_NAME !== cacheName && cacheName.startsWith("tech-radar")) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+});
 self.addEventListener('install', function (e) {
     e.waitUntil(
-        caches.open('tech-radar').then(function (cache) {
+        caches.open(CACHE_NAME).then(function (cache) {
             return cache.addAll([
                 'index.html',
                 'd3.min.js',
