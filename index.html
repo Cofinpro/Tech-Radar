@@ -22,6 +22,11 @@
     <link rel="apple-touch-icon" type="image/png" sizes="1066,1066" href="img/app_icon_256.png">
 
     <link href="style.css" rel="stylesheet">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
     <script src="d3.min.js" defer></script>
     <script src="tech-radar.js" defer>
     </script>
