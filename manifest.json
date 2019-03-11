@@ -1,0 +1,15 @@
+{
+  "name": "Cofinpro Tech-Radar",
+  "short_name": "Tech-Radar",
+  "lang": "de-DE",
+  "start_url": "https://cofinpro.github.io/Tech-Radar",
+  "display": "fullscreen",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "img/app_icon_256.png",
+      "sizes": "256,256",
+      "type": "image/png"
+    }
+  ]
+}
