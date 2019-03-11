@@ -17,10 +17,9 @@
     "name": "Backend",
     "items": [
       {"name": "JavaEE", "circle": 1},
-      {"name": "JPA/Hibernate", "circle": 1},
-      {"name": ".NET", "circle": 2},
       {"name": "Python", "circle": 2},
       {"name": "Spring (Boot)", "circle": 2},
+      {"name": ".NET", "circle": 3},
       {"name": "MongoDB", "circle": 3},
       {"name": "MicroProfile", "circle": 3},
       {"name": "JBoss Drools", "circle": 4},
@@ -39,8 +38,7 @@
       {"name": "Vagrant", "circle": 4},
       {"name": "Rundeck", "circle": 2},
       {"name": "Bamboo", "circle": 3},
-      {"name": "Robot Framework", "circle": 3},
-      {"name": "PACT", "circle": 3}
+      {"name": "Robot Framework", "circle": 3}
     ]
   },
   {
