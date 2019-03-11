@@ -7,21 +7,19 @@
       {"name": "d3", "circle": 2},
       {"name": "ionic", "circle": 2},
       {"name": "MVC-Spec", "circle": 3},
-      {"name": "Liferay/Vaadin", "circle": 4},
-      {"name": "Eclipse RCP", "circle": 4}
+      {"name": "Liferay/Vaadin", "circle": 4}
     ]
   },
   {
     "name": "Backend",
     "items": [
       {"name": "JavaEE", "circle": 1},
-      {"name": "JAX-RS/RestEasy", "circle": 1},
+      {"name": "JAX-RS", "circle": 1},
       {"name": "JPA/Hibernate", "circle": 1},
       {"name": "JBoss Drools", "circle": 1},
       {"name": ".NET", "circle": 2},
       {"name": "ElasticSearch", "circle": 2},
-      {"name": "Spring", "circle": 4},
-      {"name": "Spring Boot", "circle": 3}
+      {"name": "Spring (Boot)", "circle": 3}
     ]
   },
   {
@@ -39,7 +37,7 @@
   {
     "name": "Plattform",
     "items": [
-      {"name": "JBoss/Wildfly", "circle": 1},
+      {"name": "Wildfly", "circle": 1},
       {"name": "Maven", "circle": 1},
       {"name": "Gradle", "circle": 2},
       {"name": "Node.js", "circle": 2},

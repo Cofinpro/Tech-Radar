@@ -6,11 +6,29 @@ body {
 }
 
 /* Typography */
+@font-face {
+    font-family: Apercu;
+    font-display: swap;
+    font-weight: normal;
+    src: local('Apercu Pro'), url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff2) format("woff2"), url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff) format("woff");
+}
+
+@font-face {
+    font-family: Apercu;
+    font-display: swap;
+    font-weight: bold;
+    src: local('Apercu Pro'), url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff2) format("woff2"), url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff) format("woff");
+}
+
+
 body {
     font-family: Apercu, Arial, Helvetica, sans-serif;
+    font-weight: normal;
     font-size: 18px;
     line-height: 1.2em;
 }
+
+
 /* Lists */
 ul li,
 ol li {
@@ -42,7 +60,7 @@ a {
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     text-decoration: underline;
 }
 
@@ -50,7 +68,7 @@ a:hover{
 .color-1 {
     color: #868e96;
     fill: #868e96;
-    stroke:  #868e96;
+    stroke: #868e96;
 }
 
 .color-2 {
@@ -75,6 +93,17 @@ a:hover{
     color: #847575;
     fill: #847575;
     stroke: #847575;
+}
+
+button, input[type=button], input[type=submit] {
+    border: #ec7b1a dashed medium;
+    border-radius: 0;
+    color: #ec7b1a;
+    background: white;
+    font-size: 1em;
+    line-height: 1.5em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /* Element styles */
