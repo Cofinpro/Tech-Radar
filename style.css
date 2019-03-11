@@ -118,6 +118,13 @@ nav > :not(:last-child):after {
 }
 
 /** Radar **/
+#radar {
+    /* Disable some webkit features to make the radar feel more native */
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
 .tech-circle text,
 .tech-circle circle {
     cursor: pointer;
