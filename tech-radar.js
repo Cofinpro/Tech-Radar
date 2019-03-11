@@ -16,7 +16,9 @@
         color: d3.schemeCategory10	//Color function
     };
 
-    d3.json('tech/radar.json')
+
+    const radar = d3.select(cfg.id);
+    d3.json(radar.attr('data-src'))
         .then(enrichData)
         .then(drawChart);
 
