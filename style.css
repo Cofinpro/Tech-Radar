@@ -19,7 +19,7 @@ body {
     font-family: Apercu;
     font-display: swap;
     font-weight: bold;
-    src: local('Apercu Pro'),
+    src: local('Apercu Pro Bold'),
     url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff2) format("woff2"),
     url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff) format("woff");
 }
@@ -30,7 +30,6 @@ body {
     font-size: 18px;
     line-height: 1.2em;
 }
-
 
 /* Lists */
 ul li,
