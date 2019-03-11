@@ -7,6 +7,7 @@ self.addEventListener('install', function (e) {
                 'tech-radar.js',
                 'style.css',
                 'tech/radar.json',
+                'img/logo_cofinpro.svg'
             ]);
         })
     );

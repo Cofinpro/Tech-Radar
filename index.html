@@ -14,8 +14,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <meta name="msapplication-navbutton-color" content="white">
-    <meta name="msapplication-starturl" content="https://cofinpro.github.io/Tech-Radar">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" type="image/png" sizes="1066,1066" href="img/app_icon_256.png">
@@ -33,9 +31,18 @@
 </head>
 
 <body>
+<header>
+    <a href="https://www.cofinpro.de">
+        <img id="cofinpro-logo" alt="Cofinpro Logo" src="img/logo_cofinpro.svg"/>
+    </a>
+    <nav>
+        <span><a href="https://www.cofinpro.de/beratungsfelder/technologie">Technologieberatung</a></span>
+        <span><a href="https://www.cofinpro.de/impressum">Impressum</a></span>
+    </nav>
+</header>
 <h1>Tech-Radar</h1>
-<div id="radar" data-src="tech/radar.json"></div>
 
+<div id="radar" data-src="tech/radar.json"></div>
 
 </body>
 

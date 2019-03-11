@@ -2,11 +2,14 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     max-width: 1200px;
-    font-family: sans-serif;
-    font-size: 1.3em;
-    line-height: 1.5em;
 }
 
+/* Typography */
+body {
+    font-family: Apercu, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 1.2em;
+}
 /* Lists */
 ul li,
 ol li {
@@ -21,7 +24,7 @@ ol li.clicked {
 
 /* Headings */
 h1 {
-    font-size: 4.25rem;
+    font-size: 3rem;
 }
 
 h2 {
@@ -33,12 +36,35 @@ h3 {
 }
 
 /* Element styles */
-#radar svg {
-    min-width: 300px;
+
+/** Header **/
+header {
+    margin: 24px 0 48px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
-#radar .axisLabel {
-    font-size: 1rem;
+nav {
+    line-height: 24px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+nav > :not(:last-child):after {
+    content: ' --- ';
+    color: #ec7b1a;
+}
+
+/** Radar **/
+
+#radar svg {
+    min-width: 300px;
 }
 
 .tech-circle text,
