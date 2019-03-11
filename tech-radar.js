@@ -236,18 +236,18 @@
 
     function handleClick(d) {
         // First remove all click-handlers
-        d3.selectAll('.clicked')
-            .classed('clicked', false);
+        d3.selectAll('.active')
+            .classed('active', false);
 
         const technology = d3.select(this).datum();
 
         d3.selectAll('.tech-circle')
             .filter(d => d === technology)
-            .classed('clicked', true);
+            .classed('active', true);
 
         d3.selectAll(`.legend li`)
             .filter(d => d === technology)
-            .classed('clicked', true);
+            .classed('active', true);
 
         d3.text(encodeURI(`tech/${d.name.toLocaleLowerCase()}.html`))
             .then(text => d3.select('#tech-info').html(text));

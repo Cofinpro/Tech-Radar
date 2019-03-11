@@ -10,16 +10,19 @@ body {
     font-family: Apercu;
     font-display: swap;
     font-weight: normal;
-    src: local('Apercu Pro'), url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff2) format("woff2"), url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff) format("woff");
+    src: local('Apercu Pro'),
+    url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff2) format("woff2"),
+    url(https://www.cofinpro.de/fonts/apercu-regular-pro.woff) format("woff");
 }
 
 @font-face {
     font-family: Apercu;
     font-display: swap;
     font-weight: bold;
-    src: local('Apercu Pro'), url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff2) format("woff2"), url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff) format("woff");
+    src: local('Apercu Pro'),
+    url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff2) format("woff2"),
+    url(https://www.cofinpro.de/fonts/apercu-bold-pro.woff) format("woff");
 }
-
 
 body {
     font-family: Apercu, Arial, Helvetica, sans-serif;
@@ -35,10 +38,8 @@ ol li {
     line-height: 1.5em;
 }
 
-ol li.active,
-ol li.clicked {
+ol li.active {
     font-weight: bold;
-    color: slategray;
 }
 
 /* Headings */
@@ -95,17 +96,6 @@ a:hover {
     stroke: #847575;
 }
 
-button, input[type=button], input[type=submit] {
-    border: #ec7b1a dashed medium;
-    border-radius: 0;
-    color: #ec7b1a;
-    background: white;
-    font-size: 1em;
-    line-height: 1.5em;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
 /* Element styles */
 
 /** Header **/
@@ -137,9 +127,7 @@ nav > :not(:last-child):after {
 }
 
 .tech-circle.active text,
-.tech-circle.active circle,
-.tech-circle.clicked text,
-.tech-circle.clicked circle {
+.tech-circle.active circle {
     transform: scale(2);
     font-size: 1.2em;
 
