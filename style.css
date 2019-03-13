@@ -129,8 +129,10 @@ nav > :not(:last-child):after {
 }
 
 #radarChart {
+    display: inline-block;
     grid-column: 1 /span 2;
     width: 100%;
+    height: 100%
 }
 
 /* swap the last to legends as they run clockwise around the circle */
