@@ -159,7 +159,7 @@ nav > :not(:last-child):after {
     font-size: 1.2em;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
     /* Element styles */
     nav {
         display: block;
