@@ -1,4 +1,4 @@
-const CACHE_NAME="tech-radar-v2";
+const CACHE_NAME="tech-radar-v3";
 
 self.addEventListener("activate", function(event) {
     event.waitUntil(

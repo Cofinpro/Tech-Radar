@@ -121,10 +121,10 @@
         /////////////////////////////////////////////////////////
 
         // Create a dot for each technology in it's sector
-        g.selectAll(".radarWrapper")
+        g.selectAll(".radarSections")
             .data(data)
-            .enter().append("g")
-            .attr("class", "radarWrapper")
+            .enter()
+            .append('g')
             .each(function (techSectionData, c) {
 
                 const radarCircle = d3.select(this).selectAll('.radarCircle')
